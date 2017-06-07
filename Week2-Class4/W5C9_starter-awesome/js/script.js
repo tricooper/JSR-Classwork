@@ -128,10 +128,15 @@ document.getElementById('rps_submit').onclick = function () {
 	// Calculate the factoral of a number inputted by the user
 	document.getElementById('factoral_submit').onclick = function () {
 		var input = document.getElementById('factoral_input').value; 
-		for (i = 0; i < input; i++) {
-			var factoral = input * (input - 1); 
+		if (input === 0) {
+			document.getElementById('factoral_display').innerHTML = 0; 
+			return; 
 		}
-		document.getElementById('factoral_display').innerHTML = factoral;
+		var answer = 1; 
+		for (var i = 1; i <=input; i++){
+			answer = answer * i; 
+		}
+		console.log(answer);
 	}
 
 
@@ -150,6 +155,8 @@ document.getElementById('rps_submit').onclick = function () {
 			star += '*'; 
 		}
 	}		
+
+
 
 
 	/****** QUESTION 14 ***********/
@@ -177,7 +184,5 @@ document.getElementById('rps_submit').onclick = function () {
 		}
 	}
 }
-
-
 
 });	
