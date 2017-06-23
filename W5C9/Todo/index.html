@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.min.js"></script> 
+        <script src="main.js" type="text/javascript"></script>
+        <script id="todo-template" type="text/x-handlebars-template">
+            <li>{{{toDo}}} 
+            <a href="javascript:void(0)" class ='delete'>Delete </a></li>         
+        </script>  
+    </head>
+    <body>
+        <form id="new_task">
+            <input id="new_task_input"/>
+            <input type="submit" id="new_task_submit"/>
+        </form>
+        <ul id="task_list">
+
+        </ul>
+    </body>
+</html>
