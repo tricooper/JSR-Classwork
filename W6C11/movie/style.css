@@ -2,3 +2,30 @@ body{
 	background:#eee;
 	font-family: 'Open Sans', sans-serif;
 }
+
+li {
+	list-style-type: none;
+    display: block;
+    float: left;
+    width: 33.33%;
+}
+
+#overlay {
+	width: 100%;
+	float: left; 
+	text-align: center; 
+	display: block;
+
+}
+
+.movieTitleClass {
+	display: none;
+}
+
+#movieTitle {
+	display: inline; 
+}
+
+#overlayDiv {
+	display: none;
+}
