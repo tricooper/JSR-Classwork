@@ -29,3 +29,18 @@ li {
 #overlayDiv {
 	display: none;
 }
+
+button#exit {
+	display: none; 
+	text-align: center; 
+	margin: 0 auto; 
+	padding: 15px;
+    background-color: blue;
+    color: white;
+    font-size: 20px;
+    width: 150px;
+    border-radius: 7px;
+}
+button#exit:hover {
+	opacity: .7;
+}

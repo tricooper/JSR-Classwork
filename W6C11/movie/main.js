@@ -36,15 +36,16 @@ $(document).ready(function() {
     function showMovies (data) {
           var moviesHTML = '<ul id="#moviesul">';
           $.each(data.Search, function(index, value) {
-            console.log(value.Title);
-            console.log(value.Poster);
+            console.log(value.Year);
             if (value.Poster !== 'N/A'){
-            moviesHTML += '<li><a class="image" + data-title="'+ value.Title +'" ><img src="'+ value.Poster +'"/></a>' + '<p class="movieTitleClass">' + value.Title + '</p>' + '</li>';
+            moviesHTML += '<li><a class="image" + data-title="'+ value.Title +'" ><img src="'+ value.Poster +'"/></a>' + '<p class="movieTitleClass">' + 'Title: ' + value.Title + '<br>' + "Year: " + value.Year + '</p>' + '</li>';
           }
+
             
 
           });
           moviesHTML += '</ul>';
+          moviesHTML += '<button id = "exit"> Back To All </button>';
           $('#movieList').html(moviesHTML);
     }
 
@@ -55,14 +56,16 @@ $(document).ready(function() {
        $(this).parent().siblings().css('display', 'none');
        // change photo display to block
        $(this).siblings('p').css('display', 'block');
+       $('#exit').css('display', 'block'); 
 
-       $('html').dblclick(function(event) {
+       $('#exit').click(function(event) {
         // remove overlay ID from element
           $('#movieList ul').children().removeAttr("id");
         // show the other movies again
           $('#movieList ul').children().css('display', 'block');
         // don't show the movie title
           $('.movieTitleClass').css('display', 'none');
+          $('#exit').css('display', 'none');           
        });
      
      });
