@@ -15,50 +15,65 @@ Example endpoint: http://www.omdbapi.com/?i=tt3896198&apikey=ada5c403
 */
 
 'use strict';
-var MovieApp = {};
+var MovieApp = {
+
+};
 
 // This is the same as document ready btw.
 $(document).ready(function() {
-
-  // This is where you register your event listeners
   $('#movie_form').submit(function(event) {
           event.preventDefault();
           var input = $('#movie_search').val();
           var request = $.ajax({
               url: 'http://www.omdbapi.com/',
               data: {s:input, apikey: 'ada5c403' },
-              success: showMovies
+              success: MovieApp.showMovies
           });
 
   });
 
+  MovieApp.compileHTML = function (movieHTML){
+    var template = $('#movies-template').html(); 
+    var templateScript = Handlebars.compile(template);
+    return templateScript(movieHTML); 
+  }
 
-    function showMovies (data) {
-          var moviesHTML = '<ul id="#moviesul">';
-          $.each(data.Search, function(index, value) {
-            console.log(value.Year);
-            if (value.Poster !== 'N/A'){
-            moviesHTML += '<li><a class="image" + data-title="'+ value.Title +'" ><img src="'+ value.Poster +'"/></a>' + '<p class="movieTitleClass">' + 'Title: ' + value.Title + '<br>' + "Year: " + value.Year + '</p>' + '</li>';
-          }
+    MovieApp.showMovies = function(data) {
+      $('#movieList').append('<ul id="moviesul">');
+      $('#movieList').append('</ul><button id = "exit"> Back To All </button>');
 
-            
+      $.each(data.Search, function(index, value){
 
-          });
-          moviesHTML += '</ul>';
-          moviesHTML += '<button id = "exit"> Back To All </button>';
-          $('#movieList').html(moviesHTML);
+        var imageObj = {
+          movieYear: value.Year,
+          movieTitle: value.Title,
+          moviePoster: value.Poster,
+          imdbID : value.imdbID
+        };
+        var movieHTML = MovieApp.compileHTML(imageObj);
+        $('#moviesul').append(movieHTML);
+
+      });
     }
 
-      $('body').on('click','.image', function(){
-
+    $('body').on('click', '.image', function(){
+       var searchID = $(this).data('id');
+       console.log(searchID);
+       MovieApp.getMoreInfo(searchID);
        $(this).parent().attr('id', 'overlay');
        // don't display other movies
        $(this).parent().siblings().css('display', 'none');
        // change photo display to block
        $(this).siblings('p').css('display', 'block');
        $('#exit').css('display', 'block'); 
+       // get more information
+       var movieId = $(this).value
 
-       $('#exit').click(function(event) {
+     });
+
+
+
+         $('body').on('click', '#exit', function(event) {
         // remove overlay ID from element
           $('#movieList ul').children().removeAttr("id");
         // show the other movies again
@@ -67,8 +82,19 @@ $(document).ready(function() {
           $('.movieTitleClass').css('display', 'none');
           $('#exit').css('display', 'none');           
        });
-     
-     });
+
+    //more info function
+    MovieApp.getMoreInfo = function (searchID) {
+          var request = $.ajax({
+              url: 'http://www.omdbapi.com/',
+              data: {i: searchID, apikey: 'ada5c403' },
+              //success: MovieApp.showMovies
+          });
+
+    }
+
+
+
 
 
 
